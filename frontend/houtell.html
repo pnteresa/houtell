@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+     <center>
+      <h1>Houtell</h1>
+    </center>
+  </head>
+
+  <body>
+    <form id="content">
+      <input type="text" name="input" class="input">
+      <button type="reset" class="search"></button>
+    </form>
+    <script>
+      function expand() {
+        $(".search").toggleClass("close");
+        $(".input").toggleClass("square");
+        if ($('.search').hasClass('close')) {
+          $('input').focus();
+        } else {
+          $('input').blur();
+        }
+      }
+
+      $('button').on('click', expand);
+      copyright('');
+
+    </script>
+  </body>
+
+</html>
