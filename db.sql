@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 27, 2016 at 06:27 PM
+-- Generation Time: Nov 28, 2016 at 05:50 PM
 -- Server version: 5.5.46-0ubuntu0.14.04.2
 -- PHP Version: 5.5.9-1ubuntu4.20
 
@@ -30,7 +30,15 @@ CREATE TABLE IF NOT EXISTS `city` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama_kota` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `city`
+--
+
+INSERT INTO `city` (`id`, `nama_kota`) VALUES
+(1, 'Jakarta'),
+(2, 'Bandung');
 
 -- --------------------------------------------------------
 
@@ -46,8 +54,16 @@ CREATE TABLE IF NOT EXISTS `hotel` (
   `bintang` tinyint(4) NOT NULL,
   `url_foto` varchar(200) DEFAULT NULL,
   `lokasi` varchar(100) DEFAULT NULL,
+  `canonical_name` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `hotel`
+--
+
+INSERT INTO `hotel` (`id`, `nama_hotel`, `id_kota`, `rating`, `bintang`, `url_foto`, `lokasi`, `canonical_name`) VALUES
+(1, 'Hotel Dummy', 1, NULL, 5, NULL, NULL, 'hotel-dummy');
 
 -- --------------------------------------------------------
 
@@ -59,8 +75,17 @@ CREATE TABLE IF NOT EXISTS `review` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `review` text NOT NULL,
   `is_positive` tinyint(1) DEFAULT NULL,
+  `hotel_id` int(11) NOT NULL,
+  `dummy` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`id`, `review`, `is_positive`, `hotel_id`, `dummy`) VALUES
+(2, 'iya ini sangat bagus ya wow', 1, 1, NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
