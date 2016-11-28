@@ -5,17 +5,23 @@
 </head>
 <body>
 	<h1>Menampilkan hotel di {{ nama_kota }}</h1>
-	{% for hotel in hotels %}
-    	<h3>{{ hotel.nama_hotel }}  
-    	{% for i in 0..hotel.bintang|number_format %}
-    		&#9733;
-		{% endfor %}
-    	</h3>
-    	<p>Anggap ini foto. URL: {{ hotel.url_foto|default('Belum ada URL') }}</p>
-    	<p><b>Rating: {{ hotel.rating|default('Belum ada rating') }}</b></p>
-    	<p><i>Lokasi: {{ hotel.lokasi|default('Belum tau wg') }}</i></p>
-        <p><a href="{{ path_for('hotel', { 'id': hotel.id, 'canonical_name': hotel.canonical_name }) }}">Lihat hotel</a></p>
-    	<hr/>
-	{% endfor %}
+    {% if error|length > 0 %}
+        <p>{{ error }}</p>
+    {% elseif not hotels %}
+        <p>Tidak ada hotel yang ditemukan</p>
+    {% else %}
+        {% for hotel in hotels %}
+            <h3>{{ hotel.nama_hotel }}  
+            {% for i in 0..hotel.bintang|number_format %}
+                &#9733;
+            {% endfor %}
+            </h3>
+            <p>Anggap ini foto. URL: {{ hotel.url_foto|default('Belum ada URL') }}</p>
+            <p><b>Rating: {{ hotel.rating|default('Belum ada rating') }}</b></p>
+            <p><i>Lokasi: {{ hotel.lokasi|default('Belum tau wg') }}</i></p>
+            <p><a href="{{ path_for('hotel', { 'id': hotel.id, 'canonical_name': hotel.canonical_name }) }}">Lihat hotel</a></p>
+            <hr/>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

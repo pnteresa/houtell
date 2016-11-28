@@ -42,7 +42,8 @@ $app->get('/city/{id}-{nama_kota}', function (Request $request, Response $respon
 	$hotels = get_city_hotels($id, $nama_kota);
     return $this->view->render($response, 'city.html', [
     	'nama_kota' => $args['nama_kota'],
-    	'hotels' => $hotels
+    	'hotels' => $hotels["data"],
+    	'error' => $hotels["error"],
     ]);
 })->setName('city');
 
@@ -61,6 +62,7 @@ function get_city_hotels($id, $nama_kota) {
 	  $isCity = true;
 	}
 	$data = array();
+	$error = "";
     if ($isCity) {
     	$sql = "SELECT * FROM `hotel` WHERE `id_kota` = $id;";
 	    $exe = $db->query($sql);
@@ -68,10 +70,10 @@ function get_city_hotels($id, $nama_kota) {
 			$data[] = $row;
 		}
     } else {
-    	$data = array("error" => "invalid city");
+    	$error = "Nama kota atau query salah";
     }
     $db = null;
-    return $data;
+    return array('data' => $data, 'error' => $error);
 }
 
 function get_hotel($id) {
