@@ -46,7 +46,7 @@ $app->get('/city/{id}-{nama_kota}', function (Request $request, Response $respon
     ]);
 })->setName('city');
 
-$app->get('/hotel/{id}+{canonical_name}', function (Request $request, Response $response, $args) {
+$app->get('/hotel/{canonical_name}-{id}', function (Request $request, Response $response, $args) {
 	$id = $request->getAttribute('id');
 	$canonical_name = $request->getAttribute('canonical_name');
 	get_hotel($id);

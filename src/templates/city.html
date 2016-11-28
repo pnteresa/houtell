@@ -14,6 +14,7 @@
     	<p>Anggap ini foto. URL: {{ hotel.url_foto }}</p>
     	<p><b>Rating: {{ hotel.rating }}</b></p>
     	<p><i>Lokasi: {{ hotel.lokasi }}</i></p>
+        <p><a href="{{ path_for('hotel', { 'id': hotel.id, 'canonical_name': hotel.canonical_name }) }}">Lihat hotel</a></p>
     	<hr/>
 	{% endfor %}
 </body>
