@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hotel di {{ nama_kota }} - Houtell</title>
+</head>
+<body>
+	<h1>Menampilkan hotel di {{ nama_kota }}</h1>
+	{% for hotel in hotels %}
+    	<h3>{{ hotel.nama_hotel }} bintang 
+    	{% for i in 0..hotel.bintang|number_format %}
+    		&#9733;
+		{% endfor %}
+    	</h3>
+    	<p>Anggap ini foto. URL: {{ hotel.url_foto }}</p>
+    	<p><b>Rating: {{ hotel.rating }}</b></p>
+    	<p><i>Lokasi: {{ hotel.lokasi }}</i></p>
+    	<hr/>
+	{% endfor %}
+</body>
+</html>
