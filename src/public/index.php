@@ -48,9 +48,14 @@ $app->get('/city/{id}-{nama_kota}', function (Request $request, Response $respon
 })->setName('city');
 
 $app->get('/hotel/{canonical_name}-{id}', function (Request $request, Response $response, $args) {
-	$id = $request->getAttribute('id');
-	$canonical_name = $request->getAttribute('canonical_name');
-	get_hotel($id);
+	$id = $args['id'];
+	$canonical_name = $args['canonical_name'];
+	$hotel = get_hotel($id, $canonical_name);
+    return $this->view->render($response, 'hotel.html', [
+    	'hotel' => $hotel["hotel"],
+    	'review' => $hotel["review"],
+    	'error' => $hotel["error"]
+    ]);
 })->setName('hotel');
 
 function get_city_hotels($id, $nama_kota) {
@@ -76,16 +81,28 @@ function get_city_hotels($id, $nama_kota) {
     return array('data' => $data, 'error' => $error);
 }
 
-function get_hotel($id) {
+function get_hotel($id, $canonical_name) {
     $db = connect_db();
-    $sql = "SELECT * FROM `hotel` WHERE `id` = '$id'";
+    $sql = "SELECT * FROM `hotel` WHERE `id` = '$id' AND `canonical_name` = '$canonical_name';";
     $exe = $db->query($sql);
     $data = array();
     while ($row = $exe->fetch_assoc()) {
-	  $data[] = $row;
+	  $data = $row;
 	}
+
+	$sql = "SELECT * FROM `review` WHERE `hotel_id` = $id;";
+    $exe = $db->query($sql);
+    $reviews = array();
+    while ($row = $exe->fetch_assoc()) {
+	  $reviews[] = $row;
+	}
+
     $db = null;
-    echo json_encode($data);
+    $error = '';
+    if (sizeof($data) == 0) {
+    	$error = "Invalid hotel";
+    }
+    return array("hotel" => $data, "review" => $reviews, "error" => $error);
 }
 
 $app->run();

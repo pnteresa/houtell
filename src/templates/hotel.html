@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hotel {{ hotel.nama_hotel }} - Houtell</title>
+</head>
+<body>
+	<h2>{{ hotel.nama_hotel }}
+        {% for i in 0..hotel.bintang|number_format %}
+            &#9733;
+        {% endfor %}
+	</h2>
+    <p>Anggap ini foto. URL: {{ hotel.url_foto|default('Belum ada URL') }}</p>
+    <p><b>Rating: {{ hotel.rating|default('Belum ada rating') }}</b></p>
+    <p><i>Lokasi: {{ hotel.lokasi|default('Belum tau wg') }}</i></p>
+    <br/>
+    <h3>Daftar Review</h3>
+    {% if review %}
+    	{% for r in review %}
+    	<p style="color:{% if r.is_positive %}green{% else %} red {% endif %}">{{ r.review }}</p>
+    	{% endfor %}
+    {% else %}
+    	<p>Belum ada review</p>
+    {% endif %}
+</body>
+</html>
