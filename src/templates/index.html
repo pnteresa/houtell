@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+     <center>
+      <h1>Houtell</h1>
+    </center>
+  </head>
+
+  <body>
+    <form id="content">
+      <input type="text" name="input" class="input">
+      <button type="reset" class="search"></button>
+    </form>
+    {% for city in cities %}
+    	<p><a href="/city/{{ city.id }}-{{ city.nama_kota }}">{{ city.nama_kota }}, Indonesia</a></p>
+    {% endfor %}
+    <script type="text/javascript" src="/static/js/script.js"></script>
+  </body>
+</html>
