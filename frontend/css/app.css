@@ -1,0 +1,162 @@
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+@font-face {
+  font-style: normal;
+  font-weight: normal;
+  font-family: CircularStd;
+  src: url('../fonts/CircularStd-Book.otf');
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: bold;
+  font-family: CircularStd;
+  src: url('../fonts/CircularStd-Bold.otf');
+}
+
+body {
+  font-family: CircularStd;
+}
+
+.topnav {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.houtell {
+  height: 60px;
+  line-height: 110px;
+  vertical-align: middle;  
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.header {
+  background-size: cover;
+  height: 100vh;
+  background-image: url("../assets/slider1.png");
+}
+
+.navbar {
+}
+
+.searchbar {
+  padding-top: 20%;
+  padding-bottom: 15%;
+}
+
+.navlink div {
+  height: 60px;
+  line-height: 110px;
+  font-size: 16px;
+  vertical-align: middle;  
+  text-align: center;
+  font-weight: 900;
+  color: #4a4a4a;
+}
+
+.footer {
+  background-color: #4A4A4A;
+  color: #FFFFFF;
+  margin-top: 60px;
+}
+
+.h6 {
+  font-weight: 900;
+  padding-top: 18%;
+}
+
+h4 {
+  margin-top: 4%;
+  font-weight: 700;
+}
+
+.content-about {
+  padding-right: 10%;
+  margin-bottom: 5%;
+}
+
+ul {
+  margin-top: 2%;
+  list-style-type: none;
+  margin-left: 0;
+}
+
+ul li {
+  margin-left: 0;
+}
+
+.highlight {
+  font-weight: bold;
+  font-size: 24px;
+  color: #4a4a4a;
+  line-height: 100px;
+}
+
+.hl-content {
+  padding-left: 20px;
+  margin: auto 0;
+  line-height: 100px;
+  color: #858585;
+}
+
+.garis {
+  height: 2px;
+  width: 40px;
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+
+.category {
+  letter-spacing: 5px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.ratingtext {
+  color: #fff;
+}
+
+.region {
+  color: #fff;
+  font-size: 20px;
+}
+
+.hotelname {
+  font-size: 30px;
+  color: #fff;
+}
+
+.thumbnailz {
+  margin: 0;
+  padding: 0;
+}
+
+.thumbnailz img {
+  width: 100%;
+}
+
+.galeri {
+  display: block;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.form.cari {
+  text-align: center;
+  border: none;
+  background: none;
+  box-shadow: none;
+  font-size: 50px;
+  margin-top: 20px;
+  height: 60px;
+  color: #3D558E;
+}

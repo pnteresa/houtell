@@ -1,12 +1,13 @@
 body {
-  background-image: url("hotel.jpeg");
+  background-image: url("hotel2.jpeg");
   background-size: cover;
   color: #fff;
   margin: 0;
 }
 
 h1 {
-  font-family: 'Anton', sans-serif;
+  font-family: 'Abel', sans-serif;
+  font-size: 100px;
 }
 
 #content {
