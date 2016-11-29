@@ -6,10 +6,8 @@ require '../vendor/autoload.php';
 
 require '../lib/db.php';
 
-$app = new \Slim\App;
-
 // Get container
-$container = $app->getContainer();
+$container = new \Slim\Container();
 
 // Register component on container
 $container['view'] = function ($container) {
@@ -24,6 +22,15 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+//Override the default Not Found Handler
+$container['notFoundHandler'] = function ($container) {
+    return function ($request, $response) use ($container) {
+        return redirect_to_home($container['response']);
+    };
+};
+
+$app = new \Slim\App($container);
+
 $app->get('/', function (Request $request, Response $response, $args) {
     return $this->view->render($response, 'index.html', []);
 })->setName('index');
@@ -31,9 +38,12 @@ $app->get('/', function (Request $request, Response $response, $args) {
 $app->get('/city/{id}-{nama_kota}', function (Request $request, Response $response, $args) {
 	$id = $args['id'];
 	$nama_kota = $args['nama_kota'];
+	if (!is_numeric($id)) {
+		return redirect_to_home($response);
+	}
 	$hotels = get_city_hotels($id, $nama_kota);
 	if (!$hotels["isCity"]) {
-		return $response->withStatus(302)->withHeader('Location', '/');
+		return redirect_to_home($response);
 	}
     return $this->view->render($response, 'city.html', [
     	'nama_kota' => $args['nama_kota'],
@@ -43,12 +53,17 @@ $app->get('/city/{id}-{nama_kota}', function (Request $request, Response $respon
 
 $app->get('/hotel/{canonical_name}-{id}', function (Request $request, Response $response, $args) {
 	$id = $args['id'];
+	if (!is_numeric($id)) {
+		return redirect_to_home($response);
+	}
 	$canonical_name = $args['canonical_name'];
 	$hotel = get_hotel($id, $canonical_name);
+	if (sizeof($hotel["hotel"]) == 0) {
+		return redirect_to_home($response);
+	}
     return $this->view->render($response, 'hotel.html', [
     	'hotel' => $hotel["hotel"],
-    	'review' => $hotel["review"],
-    	'error' => $hotel["error"]
+    	'review' => $hotel["review"]
     ]);
 })->setName('hotel');
 
@@ -94,6 +109,10 @@ function get_hotel($id, $canonical_name) {
     	$error = "Invalid hotel";
     }
     return array("hotel" => $data, "review" => $reviews, "error" => $error);
+}
+
+function redirect_to_home($response) {
+	return $response->withStatus(302)->withHeader('Location', '/');
 }
 
 $app->run();
