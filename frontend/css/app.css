@@ -107,6 +107,16 @@ body {
   background-color: #4A4A4A;
   color: #FFFFFF;
   margin-top: 60px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.navlink a {
+  color: #4a4a4a;
+}
+
+.navlink a:hover {
+  text-decoration: underline;
 }
 
 .h6 {
