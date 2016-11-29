@@ -24,14 +24,6 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-$app->get('/hello/{name}', function (Request $request, Response $response, $args) {
-    $name = $request->getAttribute('name');
-    // $response->getBody()->write("Hello, $name");
-    return $this->view->render($response, 'index.html', [
-        'name' => $args['name']
-    ]);
-});
-
 $app->get('/', function (Request $request, Response $response, $args) {
     return $this->view->render($response, 'index.html', []);
 })->setName('index');
@@ -40,10 +32,12 @@ $app->get('/city/{id}-{nama_kota}', function (Request $request, Response $respon
 	$id = $args['id'];
 	$nama_kota = $args['nama_kota'];
 	$hotels = get_city_hotels($id, $nama_kota);
+	if (!$hotels["isCity"]) {
+		return $response->withStatus(302)->withHeader('Location', '/');
+	}
     return $this->view->render($response, 'city.html', [
     	'nama_kota' => $args['nama_kota'],
-    	'hotels' => $hotels["data"],
-    	'error' => $hotels["error"],
+    	'hotels' => $hotels["data"]
     ]);
 })->setName('city');
 
@@ -67,18 +61,15 @@ function get_city_hotels($id, $nama_kota) {
 	  $isCity = true;
 	}
 	$data = array();
-	$error = "";
     if ($isCity) {
     	$sql = "SELECT * FROM `hotel` WHERE `id_kota` = $id;";
 	    $exe = $db->query($sql);
 	    while ($row = $exe->fetch_assoc()) {
 			$data[] = $row;
 		}
-    } else {
-    	$error = "Nama kota atau query salah";
     }
     $db = null;
-    return array('data' => $data, 'error' => $error);
+    return array('data' => $data, 'isCity' => $isCity);
 }
 
 function get_hotel($id, $canonical_name) {
