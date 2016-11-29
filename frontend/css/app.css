@@ -79,6 +79,15 @@ body {
   color: #ffffff;
 }
 
+.houtell-grey {
+  height: 60px;
+  line-height: 110px;
+  vertical-align: middle;  
+  font-size: 28px;
+  font-weight: bold;
+  color: #929292;
+}
+
 .header {
   background-size: cover;
   height: 100vh;
@@ -103,6 +112,16 @@ body {
   color: #4a4a4a;
 }
 
+.navlink-grey div {
+  height: 60px;
+  line-height: 110px;
+  font-size: 16px;
+  vertical-align: middle;  
+  text-align: center;
+  font-weight: 900;
+  color: #929292;
+}
+
 .footer {
   background-color: #4A4A4A;
   color: #FFFFFF;
@@ -116,6 +135,14 @@ body {
 }
 
 .navlink a:hover {
+  text-decoration: underline;
+}
+
+.navlink-grey a {
+  color: #929292;
+}
+
+.navlink-grey a:hover {
   text-decoration: underline;
 }
 
@@ -149,6 +176,14 @@ ul li {
   font-size: 24px;
   color: #4a4a4a;
   line-height: 100px;
+}
+
+.highlight-result {
+  font-weight: bold;
+  font-size: 24px;
+  color: #4a4a4a;
+  line-height: 100px;
+  margin-left: 15px;
 }
 
 .hl-content {
