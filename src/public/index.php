@@ -32,7 +32,10 @@ $container['notFoundHandler'] = function ($container) {
 $app = new \Slim\App($container);
 
 $app->get('/', function (Request $request, Response $response, $args) {
-    return $this->view->render($response, 'index.html', []);
+	$cities = get_city();
+    return $this->view->render($response, 'index.html', [
+    	'cities' => $cities
+    ]);
 })->setName('index');
 
 $app->get('/city/{id}-{nama_kota}', function (Request $request, Response $response, $args) {
@@ -66,6 +69,17 @@ $app->get('/hotel/{canonical_name}-{id}', function (Request $request, Response $
     	'review' => $hotel["review"]
     ]);
 })->setName('hotel');
+
+function get_city() {
+	$db = connect_db();
+	$sql = "SELECT * FROM `city`;";
+	$exe = $db->query($sql);
+    $cities = array();
+    while ($row = $exe->fetch_assoc()) {
+	  $cities[] = $row;
+	}
+	return $cities;
+}
 
 function get_city_hotels($id, $nama_kota) {
     $db = connect_db();
