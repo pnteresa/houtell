@@ -276,6 +276,15 @@ ul li {
   margin-bottom: 50px;
 }
 
+.add-review {
+  margin-top: 110px;
+  margin-left: 250px;
+}
+
+.add-review a {
+  color: #fff;
+}
+
 .hotelname {
   font-size: 30px;
   color: #fff;
