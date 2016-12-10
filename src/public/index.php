@@ -40,7 +40,8 @@ $app->get('/', function (Request $request, Response $response, $args) {
 
 $app->get('/city/{id}-{nama_kota}', function (Request $request, Response $response, $args) {
 	$id = $args['id'];
-	$nama_kota = $args['nama_kota'];
+	echo $id;
+    $nama_kota = $args['nama_kota'];
 	if (!is_numeric($id)) {
 		return redirect_to_home($response);
 	}
