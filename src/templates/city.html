@@ -1,25 +1,118 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Hotel di {{ nama_kota }} - Houtell</title>
-</head>
-<body>
-	<h1>Menampilkan hotel di {{ nama_kota }}</h1>
-    {% if not hotels %}
-        <p>Tidak ada hotel yang ditemukan</p>
-    {% else %}
-        {% for hotel in hotels %}
-            <h3>{{ hotel.nama_hotel }}  
-            {% for i in 0..hotel.bintang|number_format %}
-                &#9733;
-            {% endfor %}
-            </h3>
-            <p>Anggap ini foto. URL: {{ hotel.url_foto|default('Belum ada URL') }}</p>
-            <p><b>Rating: {{ hotel.rating|default('Belum ada rating') }}</b></p>
-            <p><i>Lokasi: {{ hotel.lokasi|default('Belum tau wg') }}</i></p>
-            <p><a href="{{ path_for('hotel', { 'id': hotel.id, 'canonical_name': hotel.canonical_name }) }}">Lihat hotel</a></p>
-            <hr/>
-        {% endfor %}
-    {% endif %}
-</body>
+	<head>
+		<meta charset="utf-8">
+		<meta content="ie=edge" http-equiv="x-ua-compatible">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<title>Houtell - Search Result</title>
+		<link href="/static/css/foundation.css" rel="stylesheet">
+		<link href="/static/css/app.css" rel="stylesheet">
+		<link href='/static/img/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+	</head>
+	<body>
+		<div class="large-12 columns">
+			<div class="row">
+				<div class="navbar">
+					<div class="large-9 columns">
+						<div class="houtell-grey">
+							HOUTELL
+						</div>
+					</div>
+					<div class="navlink-grey">
+						<div class="large-1 columns">
+							<a href="/">Home</a>
+						</div>
+						<div class="large-1 columns">
+							<a href="/#highlights">Highlights</a>
+						</div>
+						<div class="large-1 columns">
+							<a href="#about">About</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="highlight-result">
+					Hotels near {{ nama_kota }}
+				</div>
+			</div>
+		</div>
+		{% if not hotels %}
+		<p style="text-align:center;">Tidak ada hotel yang ditemukan</p>
+		<p style="text-align:center;"><a href="/">Kembali ke halaman utama</a></p>
+		{% else %}
+		<div class="row">
+			{% for hotel in hotels %}
+			<a href="{{ path_for('hotel', { 'id': hotel.id, 'canonical_name': hotel.canonical_name }) }}">
+				<div class="large-4 columns topnav thumbnailz">
+					<figure class="pichover">
+						<img alt="{{ hotel.nama_hotel }}" src="{{ hotel.url_foto|default('/static/assets/hl1.png') }}">
+						<figcaption>
+							<h2>{{ hotel.nama_hotel }}</h2><br/>
+							<p>{{ hotel.lokasi|default('Lokasi, Kota') }}<br>
+							{{ hotel.rating|default('-') }} out of 10
+							<br/></p>
+							<!-- bintang: {% for i in 0..hotel.bintang|number_format %}&#9733;{% endfor %} -->
+						</figcaption>
+					</figure>
+				</div>
+			</a>
+			{% endfor %}
+		</div>
+		{% endif %}
+		<div class="footer" id="about">
+			<div class="row">
+				<div class="large-6 columns">
+					<h4>About</h4>
+					<div class="content-about">
+						Mauris dapibus, eros sit amet pretium ullamcorper, felis lectus ullamcorper ligula, sit amet cursus velit lectus sit amet tortor. Donec ultricies dui neque. Phasellus convallis ligula non lacus pellentesque, nec congue augue placerat. Phasellus eleifend feugiat ligula. Etiam non massa fringilla, maximus erat sit amet, suscipit dui. Nulla facilisi. Aliquam justo leo, dapibus sit amet eros non, tincidunt rutrum urna. In vestibulum mollis placerat. Nulla hendrerit enim quis lectus molestie, ac eleifend enim lacinia. Lorem
+					</div>
+				</div>
+				<div class="large-2 columns">
+					<div class="h6">
+						Houtell
+					</div>
+					<div class="content-houtell">
+						<ul>
+							<li>About</li>
+							<li>Careers</li>
+							<li>Press</li>
+							<li>Policies</li>
+							<li>Help</li>
+						</ul>
+					</div>
+				</div>
+				<div class="large-2 columns">
+					<div class="h6">
+						Discover
+					</div>
+					<div class="content-discover">
+						<ul>
+							<li>Trust & Safety</li>
+							<li>Invite Friends</li>
+							<li>Gift Cards</li>
+							<li>Business Travel</li>
+							<li>Guidebooks</li>
+						</ul>
+					</div>
+				</div>
+				<div class="large-2 columns">
+					<div class="h6">
+						Hosting
+					</div>
+					<div class="content-hosting">
+						<ul>
+							<li>Why Host</li>
+							<li>Hospitality</li>
+							<li>Responsible Hosting</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="/static/js/vendor/jquery.js"/>
+		<script src="/static/s/vendor/what-input.js"/>
+		<script src="/static/js/vendor/foundation.js"/>
+		<script src="/static/js/app.js"/>
+	</body>
 </html>
