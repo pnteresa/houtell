@@ -3,16 +3,20 @@
   <head> </head>
   <body>
     <?php
-       require_once __DIR__.'/../vendor/autoload.php';
+      session_start();
 
+      // var_dump($_SESSION['access_token']);
+      // sleep(5);
+       require_once __DIR__.'/../vendor/autoload.php';
       $queryErr = "";
       $query = "";
 
-      session_start();
-    //   if(isset($_SESSION['access_token']) ) {
-    //     $_SESSION['access_token'] = ""; // add this line if not added somewhere else
-    //     // header('Location: index.php');
-    // }
+      // session_destroy();
+      // exit;
+      // if(isset($_SESSION['access_token']) ) {
+      //   session_unset(); // add this line if not added somewhere else
+      //   // header('Location: index.php');
+      // }
 
     // $_SESSION['access_token'] = NULL;
     
@@ -20,14 +24,32 @@
       $client->setAuthConfig('client_secrets.json');
       $client->addScope(Google_Service_Prediction::PREDICTION);
 
+      if (! isset($_SESSION['counter3'])) {
+
+        // $_SESSION['counter3'] == 1;
+
+        // // var_dump($_SESSION['counter']);
+        // echo "Belum terotentikasi";
+        // $redirect_uri = 'http://localhost/houtell/src/public/oauth2callback.php';
+        // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+        
+      }
+      unset($_SESSION['counter3']);
       if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
-        // var_dump($_SESSION['access_token']);
+        // echo "SUdah terotentikasi";
+        echo "=============================== YOUR TOKEN ==================================";
+  
+        var_dump($_SESSION['access_token']);
+        echo "\n";
         $client->setAccessToken($_SESSION['access_token']);
         // $drive_service = new Google_Service_Drive($client);
         
       } else {
+        // // Belum terotentikasi
+        echo "Belum terotentikasi";
         $redirect_uri = 'http://localhost/houtell/src/public/oauth2callback.php';
         header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+        echo "Harusnya udah terotentikasi";
       }
 
 
@@ -51,8 +73,10 @@
             $a->setCsvInstance($data);
             $input->setInput($a);
             $predict_query =  $prediction_service->trainedmodels->predict('houtell-150706', 'language-identifier', $input); 
+            echo "=============================== RESULT ========================================";
+            
+  
             echo json_encode($predict_query);
-                
           }
         }
       }
@@ -75,6 +99,7 @@
       <span class="error">* <?php echo $queryErr;?></span>
       <input type="submit" name="submit" value="Submit">  
     </form>
+    <a href = "refresh.php"> Refresh Token </a>
     <!-- <button text = "Refresh Token" onclick = "refreshToken()"> -->
     <?php
       echo "<h2>Your Input:</h2>";
