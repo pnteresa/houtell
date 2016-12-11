@@ -1,25 +1,162 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Hotel {{ hotel.nama_hotel }} - Houtell</title>
-</head>
-<body>
-	<h2>{{ hotel.nama_hotel }}
-        {% for i in 0..hotel.bintang|number_format %}
-            &#9733;
-        {% endfor %}
-	</h2>
-    <p>Anggap ini foto. URL: {{ hotel.url_foto|default('Belum ada URL') }}</p>
-    <p><b>Rating: {{ hotel.rating|default('Belum ada rating') }}</b></p>
-    <p><i>Lokasi: {{ hotel.lokasi|default('Belum tau wg') }}</i></p>
-    <br/>
-    <h3>Daftar Review</h3>
-    {% if review %}
-    	{% for r in review %}
-    	<p style="color:{% if r.is_positive %}green{% else %} red {% endif %}">{{ r.review }}</p>
-    	{% endfor %}
-    {% else %}
-    	<p>Belum ada review</p>
-    {% endif %}
-</body>
-</html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ hotel.nama_hotel }} - Houtell</title>
+        <link rel="stylesheet" href="/static/css/foundation.css">
+        <link rel="stylesheet" href="/static/css/app.css">
+        <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/ >
+    </head>
+    <body>
+        <div class="headerz" id="home" style="background-image:url('{{ hotel.url_foto|default('/static/assets/sierra.png') }}');">
+            <div class="row">
+              <div class="large-12 columns">
+                  <div class="row">
+                    <div class="navbar">
+                      <div class="large-9 columns">
+                        <div class="houtell">
+                          HOUTELL
+                        </div>
+                      </div>
+                      <div class="navlink-white">
+                        <div class="large-1 columns">
+                          <a href="/">Home</a>
+                        </div>
+                        <div class="large-1 columns">
+                          <a href="/#highlights">Highlights</a>
+                        </div>
+                        <div class="large-1 columns">
+                          <a href="#about">About</a>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="large-12 columns topnav">
+                      <div class="searchbar">
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="caption">
+                        <div class="large-4 columns">
+                            <div class="garis"></div>
+                            <div class="category">Nature View</div>
+                            <div class="hotelname">{{ hotel.nama_hotel }}</div>
+                            <div class="region">{{ hotel.lokasi|default('Lokasi, Kota') }}</div>
+                            <div class="ratingtext"><b>{{ hotel.rating|default('-') }}</b> out of 10</div>
+                        </div>
+                          <div class="large-4 columns topnav">
+                          </div>
+                          <div class="large-4 columns">
+                            <div class="add-review">
+                                <a>Add review for this hotel!</a>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="large-1 columns">
+            <div class="highlight" id="highlights">
+              Reviews
+            </div>
+          </div>
+          <div class="large-11 columns">
+            <div class="review-desc">
+              Honest reviews from our beloved customers about this hotel.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+            {% if not review %}
+            <p>Belum ada review</p>
+            {% else %}
+            {% for r in review %}
+            <div class="review-instance" style="width: 100%">
+                <div class="large-1 columns">
+                  <div class="rating">
+                    {{ r.rating|default('0,0') }}
+                  </div>
+                </div>
+                <div class="large-11 columns">
+                  <div class="reviewz">
+                    <div class="review-spec">
+                        <div class="review-name">
+                            {{ r.reviewer|default('Hubert Cumberdale')}}
+                        </div>
+                        <div class="review-date">
+                            {{ r.date|default('01 Januari 2000')}}
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        {{ r.review }}
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="footer" id="about">
+          <div class="row">
+            <div class="large-6 columns">
+              <h4>About</h4>
+              <div class="content-about">
+                Mauris dapibus, eros sit amet pretium ullamcorper, felis lectus ullamcorper ligula, sit amet cursus velit lectus sit amet tortor. Donec ultricies dui neque. Phasellus convallis ligula non lacus pellentesque, nec congue augue placerat. Phasellus eleifend feugiat ligula. Etiam non massa fringilla, maximus erat sit amet, suscipit dui. Nulla facilisi. Aliquam justo leo, dapibus sit amet eros non, tincidunt rutrum urna. In vestibulum mollis placerat. Nulla hendrerit enim quis lectus molestie, ac eleifend enim lacinia. Lorem 
+              </div>
+            </div>
+            <div class="large-2 columns">
+              <div class="h6">Houtell</div>
+              <div class="content-houtell">
+                <ul>
+                  <li>About</li>
+                  <li>Careers</li>
+                  <li>Press</li>
+                  <li>Policies</li>
+                  <li>Help</li>
+                </ul>
+              </div>
+            </div>
+            <div class="large-2 columns">
+              <div class="h6">Discover</div>
+              <div class="content-discover">
+                <ul>
+                  <li>Trust & Safety</li>
+                  <li>Invite Friends</li>
+                  <li>Gift Cards</li>
+                  <li>Business Travel</li>
+                  <li>Guidebooks</li>
+                </ul>
+              </div>
+            </div>
+            <div class="large-2 columns">
+              <div class="h6">Hosting</div>
+              <div class="content-hosting">
+                <ul>
+                  <li>Why Host</li>
+                  <li>Hospitality</li>
+                  <li>Responsible Hosting</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script src="/static/js/vendor/jquery.js"></script>
+        <script src="/static/js/vendor/what-input.js"></script>
+        <script src="/static/js/vendor/foundation.js"></script>
+        <script src="/static/js/app.js"></script>
+ 
+    </body>
+  </html>

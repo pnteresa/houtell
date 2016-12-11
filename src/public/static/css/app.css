@@ -97,7 +97,7 @@ body {
 .headerz {
   background-size: cover;
   height: 80vh;
-  background-image: url("../assets/sierra.png");
+  /*background-image: url("../assets/sierra.png");*/
 }
 
 .navbar {
@@ -324,7 +324,7 @@ ul li {
 }
 
 .caption {
-  margin-top: -40px;
+  margin-top: -180px;
 }
 
 figure.pichover figcaption::before {
