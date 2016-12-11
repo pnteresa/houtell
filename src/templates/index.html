@@ -1,22 +1,208 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css">
-    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-     <center>
-      <h1>Houtell</h1>
-    </center>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houtell</title>
+    <link rel="stylesheet" href="/static/css/foundation.css">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <link rel='shortcut icon' href='/static/img/favicon.ico' type='image/x-icon'/ >
   </head>
-
   <body>
-    <form id="content">
-      <input type="text" name="input" class="input">
-      <button type="reset" class="search"></button>
-    </form>
-    {% for city in cities %}
-    	<p><a href="/city/{{ city.id }}-{{ city.nama_kota }}">{{ city.nama_kota }}, Indonesia</a></p>
-    {% endfor %}
-    <script type="text/javascript" src="/static/js/script.js"></script>
+    <div class="header" id="home">
+    <div class="row">
+      <div class="large-12 columns">
+          <div class="row">
+            <div class="navbar">
+              <div class="large-9 columns">
+                <div class="houtell">
+                  HOUTELL
+                </div>
+              </div>
+              <div class="navlink">
+                <div class="large-1 columns">
+                  <a href="#home">Home</a>
+                </div>
+                <div class="large-1 columns">
+                  <a href="#highlights">Highlights</a>
+                </div>
+                <div class="large-1 columns">
+                  <a href="#about">About</a>
+                </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="large-12 columns topnav">
+              <div class="searchbar">
+                <input type="text" placeholder="Type hotel or region..." class="form cari" id="search"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+              <div class="large-4 columns">
+                <div class="garis"></div>
+                <div class="category">Beach Vibes</div>
+                <div class="hotelname">Sunflower Hotel &amp; Spa</div>
+                <div class="region">Seminyak, Bali</div>
+                <div class="ratingtext"><b>4.8</b> out of 5</div>
+              </div>
+              <div class="large-4 columns topnav">
+              </div>
+              <div class="large-4 columns">
+                
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="row">
+      <div class="large-1 columns">
+        <div class="highlight" id="highlights">
+          Highlights
+        </div>
+      </div>
+      <div class="large-11 columns">
+        <div class="hl-content">
+          Hotels with highest rating this week, crafted just for you.
+        </div>
+      </div>
+    </div>
+
+    <div class="galeri">
+      <div class="row gal">
+
+        <div class="large-4 columns topnav thumbnailz">
+          <figure class="pichover">
+            <img src="/static/assets/hl1.png" alt="Chic Boutique Hotel">
+            <figcaption>
+              <h2>Chic Boutique Hotel</h2>
+              <p>Ubud, Bali<br>4.8 out of 5</p>
+            </figcaption>     
+          </figure>
+        </div>
+
+        <div class="large-4 columns topnav thumbnailz">
+          <figure class="pichover">
+            <img src="/static/assets/hl2.png" alt="Seminyak Suites">
+            <figcaption>
+              <h2>Seminyak Suites</h2>
+              <p>Seminyak, Bali<br>4.9 out of 5</p>
+            </figcaption>     
+          </figure>
+        </div>
+
+        <div class="large-4 columns topnav thumbnailz">
+          <figure class="pichover">
+            <img src="/static/assets/hl3.png" alt="Golden Rose Resorts & Spa">
+            <figcaption>
+              <h2>Golden Rose Resorts &amp; Spa</h2>
+              <p>Dago, Bandung<br>4.7 out of 5</p>
+            </figcaption>     
+          </figure>
+        </div>
+      </div>
+
+      <div class="row gal">
+        <div class="large-4 columns topnav thumbnailz">
+          <figure class="pichover">
+            <img src="/static/assets/hl4.png" alt="Royale Hotel & Cafe">
+            <figcaption>
+              <h2>Royale Hotel &amp; Cafe</h2>
+              <p>Thamrin, Jakarta<br>4.6 out of 5</p>
+            </figcaption>     
+          </figure>
+        </div>
+
+        <div class="large-4 columns topnav thumbnailz">
+          <figure class="pichover">
+            <img src="/static/assets/hl5.png" alt="Wynn Hotel">
+            <figcaption>
+              <h2>Wynn Hotel</h2>
+              <p>Cakranegara, Mataram<br>4.9 out of 5</p>
+            </figcaption>     
+          </figure>
+        </div>
+
+        <div class="large-4 columns topnav thumbnailz">
+          <figure class="pichover">
+            <img src="/static/assets/hl6.png" alt="Sanur Beach Resorts">
+            <figcaption>
+              <h2>Sanur Beach Resorts</h2>
+              <p>Sanur, Bali<br>4.8 out of 5</p>
+            </figcaption>     
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" id="about">
+      <div class="row">
+        <div class="large-6 columns">
+          <h4>About</h4>
+          <div class="content-about">
+            Mauris dapibus, eros sit amet pretium ullamcorper, felis lectus ullamcorper ligula, sit amet cursus velit lectus sit amet tortor. Donec ultricies dui neque. Phasellus convallis ligula non lacus pellentesque, nec congue augue placerat. Phasellus eleifend feugiat ligula. Etiam non massa fringilla, maximus erat sit amet, suscipit dui. Nulla facilisi. Aliquam justo leo, dapibus sit amet eros non, tincidunt rutrum urna. In vestibulum mollis placerat. Nulla hendrerit enim quis lectus molestie, ac eleifend enim lacinia. Lorem 
+          </div>
+        </div>
+        <div class="large-2 columns">
+          <div class="h6">Houtell</div>
+          <div class="content-houtell">
+            <ul>
+              <li>About</li>
+              <li>Careers</li>
+              <li>Press</li>
+              <li>Policies</li>
+              <li>Help</li>
+            </ul>
+          </div>
+        </div>
+        <div class="large-2 columns">
+          <div class="h6">Discover</div>
+          <div class="content-discover">
+            <ul>
+              <li>Trust &amp; Safety</li>
+              <li>Invite Friends</li>
+              <li>Gift Cards</li>
+              <li>Business Travel</li>
+              <li>Guidebooks</li>
+            </ul>
+          </div>
+        </div>
+        <div class="large-2 columns">
+          <div class="h6">Hosting</div>
+          <div class="content-hosting">
+            <ul>
+              <li>Why Host</li>
+              <li>Hospitality</li>
+              <li>Responsible Hosting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/js/vendor/jquery.js"></script>
+    <script src="/static/js/vendor/jquery-ui.js"></script>
+    <script src="/static/js/vendor/what-input.js"></script>
+    <script src="/static/js/vendor/foundation.js"></script>
+    <script src="/static/js/app.js"></script>
+
+      <script>
+        const cities = {{ cities|json_encode|raw }};
+        $("#search").autocomplete({
+          source: cities.map(a => a.nama_kota),
+          select: function( event , ui ) {
+            const nama_kota = ui.item.value;
+            const id = cities.find(x => x.nama_kota == nama_kota).id;
+            window.location.href = `/city/${id}-${nama_kota}`;
+          }
+        });
+      </script>
   </body>
+
 </html>
