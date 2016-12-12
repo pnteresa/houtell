@@ -76,68 +76,17 @@
 
     <div class="galeri">
       <div class="row gal">
-
+        {% for hotel in hotels %}
         <div class="large-4 columns topnav thumbnailz">
           <figure class="pichover">
-            <img src="/static/assets/hl1.png" alt="Chic Boutique Hotel">
+            <img src="/static/assets/{{ hotel.url_foto|default('hl1.png') }}" alt="{{ hotel.nama_hotel|default('Nama Hotel') }}">
             <figcaption>
-              <h2>Chic Boutique Hotel</h2>
-              <p>Ubud, Bali<br>4.8 out of 5</p>
+              <h2>{{ hotel.nama_hotel|default('Nama Hotel') }}</h2>
+              <p>{{ hotel.lokasi|default('Lokasi') }}<br>{{ hotel.rating|default('NaN') }} out of 5</p>
             </figcaption>     
           </figure>
         </div>
-
-        <div class="large-4 columns topnav thumbnailz">
-          <figure class="pichover">
-            <img src="/static/assets/hl2.png" alt="Seminyak Suites">
-            <figcaption>
-              <h2>Seminyak Suites</h2>
-              <p>Seminyak, Bali<br>4.9 out of 5</p>
-            </figcaption>     
-          </figure>
-        </div>
-
-        <div class="large-4 columns topnav thumbnailz">
-          <figure class="pichover">
-            <img src="/static/assets/hl3.png" alt="Golden Rose Resorts & Spa">
-            <figcaption>
-              <h2>Golden Rose Resorts &amp; Spa</h2>
-              <p>Dago, Bandung<br>4.7 out of 5</p>
-            </figcaption>     
-          </figure>
-        </div>
-      </div>
-
-      <div class="row gal">
-        <div class="large-4 columns topnav thumbnailz">
-          <figure class="pichover">
-            <img src="/static/assets/hl4.png" alt="Royale Hotel & Cafe">
-            <figcaption>
-              <h2>Royale Hotel &amp; Cafe</h2>
-              <p>Thamrin, Jakarta<br>4.6 out of 5</p>
-            </figcaption>     
-          </figure>
-        </div>
-
-        <div class="large-4 columns topnav thumbnailz">
-          <figure class="pichover">
-            <img src="/static/assets/hl5.png" alt="Wynn Hotel">
-            <figcaption>
-              <h2>Wynn Hotel</h2>
-              <p>Cakranegara, Mataram<br>4.9 out of 5</p>
-            </figcaption>     
-          </figure>
-        </div>
-
-        <div class="large-4 columns topnav thumbnailz">
-          <figure class="pichover">
-            <img src="/static/assets/hl6.png" alt="Sanur Beach Resorts">
-            <figcaption>
-              <h2>Sanur Beach Resorts</h2>
-              <p>Sanur, Bali<br>4.8 out of 5</p>
-            </figcaption>     
-          </figure>
-        </div>
+        {% endfor %}
       </div>
     </div>
 
