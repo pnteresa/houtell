@@ -62,23 +62,58 @@
             $queryErr = "Format : letters, numbers, symbols (,.?!;')."; 
           }
           else {
-            
             $prediction_service = new Google_Service_Prediction($client);
             $a = new Google_Service_Prediction_InputInput();
             $input = new Google_Service_Prediction_Input();
             // $query_dummy = array("I you we they are I don't know");
-            global $client, $prediction_service, $a, $input, $query;
           
-            $data = array($query);
+            function parseReview($string) {
+              $string = preg_replace('/[^A-Za-z0-9]/', ' ', $string);
+              $string = preg_replace('/\s+/', ' ', $string);
+              $string = preg_replace('/[0-9]/', '', $string);
+              
+              return strtolower($string);
+            }
+
+            $parsed_query = parseReview($query);
+            $data = array($parsed_query);
             $a->setCsvInstance($data);
             $input->setInput($a);
             $predict_query =  $prediction_service->trainedmodels->predict('1065505813620', 'houtell-review', $input); 
+
             echo "=============================== RESULT ========================================";
             
-            echo json_encode($predict_query);
-            // $json_result = json_encode($predict_query);
-            // echo json_decode($json_result['outputLabel'], true);
-            echo json_encode($predict_query->getOutputMulti());
+            $json_predict_query = json_encode($predict_query);
+            $json_predict_query = json_decode($json_predict_query, true);
+
+            $json_with_percentage = json_encode($predict_query->getOutputMulti());
+            $json_with_percentage = json_decode($json_with_percentage, true);
+            $score = round($json_with_percentage[0]['score'], 2) * 10;
+            
+            echo "label: " . $json_predict_query['outputLabel'];
+            echo "score: " . $score;
+
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "houtell";
+
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            } 
+
+            $sql = "INSERT INTO review (review, rating, hotel_id) VALUES ('$query', $score, 1)";
+
+            if ($conn->query($sql) === TRUE) {
+                echo $query . "inserted succesfully";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+
+            $conn->close();
           }
         }
       }
@@ -108,5 +143,4 @@
       echo "<br>";
     ?>
    </body>
-
 </html>
