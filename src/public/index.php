@@ -71,6 +71,16 @@ $app->get('/hotel/{canonical_name}-{id}', function (Request $request, Response $
     ]);
 })->setName('hotel');
 
+$app->post('/hotel/{canonical_name}-{id}', function (Request $request, Response $response, $args) {
+    $url = "/hotel/{$args['canonical_name']}-{$args['id']}";
+    $review = $request->getParsedBody()['review'];
+    $hotelId = $request->getParsedBody()['hotel-id'];
+
+    // INSERT KODE BUAT NGEQUERY DI SINI!!
+
+    return $response->withHeader('Location', $url);
+})->setName('hotel_review_post');
+
 function get_city() {
 	$db = connect_db();
 	$sql = "SELECT * FROM `city`;";
