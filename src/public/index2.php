@@ -72,11 +72,13 @@
             $data = array($query);
             $a->setCsvInstance($data);
             $input->setInput($a);
-            $predict_query =  $prediction_service->trainedmodels->predict('houtell-150706', 'language-identifier', $input); 
+            $predict_query =  $prediction_service->trainedmodels->predict('1065505813620', 'houtell-review', $input); 
             echo "=============================== RESULT ========================================";
             
-  
             echo json_encode($predict_query);
+            // $json_result = json_encode($predict_query);
+            // echo json_decode($json_result['outputLabel'], true);
+            echo json_encode($predict_query->getOutputMulti());
           }
         }
       }
@@ -99,7 +101,6 @@
       <span class="error">* <?php echo $queryErr;?></span>
       <input type="submit" name="submit" value="Submit">  
     </form>
-    <a href = "refresh.php"> Refresh Token </a>
     <!-- <button text = "Refresh Token" onclick = "refreshToken()"> -->
     <?php
       echo "<h2>Your Input:</h2>";
