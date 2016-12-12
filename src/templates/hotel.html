@@ -55,13 +55,24 @@
                           </div>
                           <div class="large-4 columns">
                             <div class="add-review">
-                                <a>Add review for this hotel!</a>
+                                <a href="#add-review">Add review for this hotel!</a>
                             </div>
                           </div>
                       </div>
                   </div>
               </div>
             </div>
+        </div>
+
+        <div class="row" style="padding-left:36px; padding-right:36px;" id="add-review">
+          <div class="highlight" id="highlights">
+            Add review for this hotel!
+          </div>
+          <form action="" method="post">
+            <textarea name="review" cols="50" rows="3"></textarea>
+            <input type="hidden" name="hotel-id" value="{{ hotel.id }}"/>
+            <input type="submit" value="Submit">
+          </form>
         </div>
 
         <div class="row">
@@ -77,7 +88,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" style="padding-left:36px; padding-right:36px;">
             {% if not review %}
             <p>Belum ada review</p>
             {% else %}
