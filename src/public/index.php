@@ -122,7 +122,7 @@ function get_city_hotels($id, $nama_kota) {
 
 function get_hotels_by_limit($limit) {
   $db = connect_db();
-  $sql = "SELECT hotel.id AS id, hotel.nama_hotel AS nama_hotel, hotel_rating.avg_rating AS rating, hotel.bintang AS bintang, hotel.url_foto AS url_foto, hotel.lokasi AS lokasi, hotel.canonical_name AS canonical_name FROM (SELECT hotel_id, AVG(rating) as avg_rating FROM review GROUP BY hotel_id) hotel_rating INNER JOIN hotel ON hotel.id = hotel_rating.hotel_id ORDER BY rating LIMIT 6;";//"SELECT * FROM `hotel` ORDER BY `rating` ORDER BY id LIMIT $limit;";
+  $sql = "SELECT hotel.id AS id, hotel.nama_hotel AS nama_hotel, hotel_rating.avg_rating AS rating, hotel.bintang AS bintang, hotel.url_foto AS url_foto, hotel.lokasi AS lokasi, hotel.canonical_name AS canonical_name FROM (SELECT hotel_id, AVG(rating) as avg_rating FROM review GROUP BY hotel_id) hotel_rating INNER JOIN hotel ON hotel.id = hotel_rating.hotel_id ORDER BY rating DESC LIMIT 6;";//"SELECT * FROM `hotel` ORDER BY `rating` ORDER BY id LIMIT $limit;";
   $exe = $db->query($sql);
   $hotels = array();
 
