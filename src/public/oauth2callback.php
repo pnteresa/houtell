@@ -37,4 +37,5 @@ if (! isset($_GET['code'])) {
   $redirect_uri = 'http://localhost/houtell/src/public/index2.php';
 
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+  // Initialize Guzzle client
 }
