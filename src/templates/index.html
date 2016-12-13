@@ -77,15 +77,17 @@
     <div class="galeri">
       <div class="row gal">
         {% for hotel in hotels %}
-        <div class="large-4 columns topnav thumbnailz">
-          <figure class="pichover">
-            <img src="{{ hotel.url_foto|default('/static/assets/hl1.png') }}" alt="{{ hotel.nama_hotel|default('Nama Hotel') }}">
-            <figcaption>
-              <h2>{{ hotel.nama_hotel|default('Nama Hotel') }}</h2>
-              <p>{{ hotel.lokasi|default('Lokasi') }}<br>{{ hotel.rating|round(1,'floor')|default('-') }} out of 5</p>
-            </figcaption>     
-          </figure>
-        </div>
+        <a href="hotel/{{ hotel.canonical_name }}-{{ hotel.id }}">
+          <div class="large-4 columns topnav thumbnailz">
+            <figure class="pichover">
+              <img src="{{ hotel.url_foto|default('/static/assets/hl1.png') }}" alt="{{ hotel.nama_hotel|default('Nama Hotel') }}">
+              <figcaption>
+                <h2>{{ hotel.nama_hotel|default('Nama Hotel') }}</h2>
+                <p>{{ hotel.lokasi|default('Lokasi') }}<br>{{ hotel.rating|round(1,'floor')|default('-') }} out of 5</p>
+              </figcaption>     
+            </figure>
+          </div>
+        </a>
         {% endfor %}
       </div>
     </div>
