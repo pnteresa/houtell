@@ -50,7 +50,7 @@
 						<figcaption>
 							<h2>{{ hotel.nama_hotel }}</h2><br/>
 							<p>{{ hotel.lokasi|default('Lokasi, Kota') }}<br>
-							{{ hotel.rating|default('-') }} out of 10
+							{{ hotel.rating|round(1,'floor')|default('-') }} out of 10
 							<br/></p>
 							<!-- bintang: {% for i in 0..hotel.bintang|number_format %}&#9733;{% endfor %} -->
 						</figcaption>

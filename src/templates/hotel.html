@@ -46,7 +46,7 @@
                       <div class="caption">
                         <div class="large-4 columns">
                             <div class="garis"></div>
-                            <div class="category">Nature View</div>
+                            <div class="category">{% for i in 1..hotel.bintang|number_format %}&#9733;{% endfor %}</div>
                             <div class="hotelname">{{ hotel.nama_hotel }}</div>
                             <div class="region">{{ hotel.lokasi|default('Lokasi, Kota') }}</div>
                             <div class="ratingtext"><b>{{ hotel.rating|default('-') }}</b> out of 10</div>

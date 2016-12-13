@@ -107,7 +107,7 @@ function get_city_hotels($id, $nama_kota) {
   $data = array();
   
   if ($isCity) {
-  	$sql = "SELECT * FROM `hotel` WHERE `id_kota` = $id;";
+    $sql = "SELECT hotel.id AS id, hotel.nama_hotel AS nama_hotel, hotel_rating.avg_rating AS rating, hotel.bintang AS bintang, hotel.url_foto AS url_foto, hotel.lokasi AS lokasi, hotel.canonical_name AS canonical_name FROM (SELECT hotel_id, ROUND(AVG(rating),1) as avg_rating FROM review GROUP BY hotel_id) hotel_rating INNER JOIN hotel ON hotel.id = hotel_rating.hotel_id WHERE hotel.id_kota = $id;";
     $exe = $db->query($sql);
     
     while ($row = $exe->fetch_assoc()) {
@@ -151,9 +151,13 @@ function get_hotel($id, $canonical_name) {
   $exe = $db->query($sql);
   $reviews = array();
 
+  $total = 0;
+
   while ($row = $exe->fetch_assoc()) {
     $reviews[] = $row;
+    $total += $row["rating"];
   }
+  $data["rating"] = round($total / sizeof($reviews),1);
 
   $db = null;
   $error = '';
