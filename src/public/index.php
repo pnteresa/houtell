@@ -48,7 +48,6 @@ $app->get('/', function (Request $request, Response $response, $args) {
 
 $app->get('/city/{id}-{nama_kota}', function (Request $request, Response $response, $args) {
   $id = $args['id'];
-  echo $id;
   $nama_kota = $args['nama_kota'];
   
   if (!is_numeric($id)) {
@@ -131,15 +130,14 @@ $app->post('/hotel/{canonical_name}-{id}', function (Request $request, Response 
     $bundle = new Google_Service_Prediction_InputInput();
     $input = new Google_Service_Prediction_Input();
       
-    
     $parsed_query = parseReview($_SESSION['query']);
     unset($_SESSION['query']);
-
 
     $data = array($parsed_query);
     $bundle->setCsvInstance($data);
     $input->setInput($bundle);
-    $predict_query =  $prediction_service->trainedmodels->predict('1065505813620', 'houtell-review', $input); 
+
+    $predict_query =  $prediction_service->trainedmodels->predict('1065505813620', 'houtell-review', $input);
 
     $json_predict_query = json_encode($predict_query);
     $json_predict_query = json_decode($json_predict_query, true);
@@ -148,40 +146,21 @@ $app->post('/hotel/{canonical_name}-{id}', function (Request $request, Response 
     $json_with_percentage = json_decode($json_with_percentage, true);
     $score = round($json_with_percentage[0]['score'], 2) * 10;
         
-    echo "label: " . $json_predict_query['outputLabel'];
-    echo "score: " . $score;
+    $db = connect_db();
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "houtell";
+    $hotel_id = $args["id"];
+    $sql = "INSERT INTO review (review, rating, hotel_id) VALUES ('$review', $score, $hotel_id)";
+    $exe = $db->query($sql);
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    } 
+    $db->close();
 
-    $sql = "INSERT INTO review (review, rating, hotel_id) VALUES ('$parsed_query', $score, 1)";
-
-    if ($conn->query($sql) === TRUE) {
-      echo $parsed_query . "inserted succesfully";
-    } else {
-      echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-
-    $conn->close();
   } else {
     $redirect_uri = 'http://localhost:8080/hotel/authenticate';
-    // var_dump($_SESSION['query']);
-    // echo "OOOI";
     return $response->withRedirect($redirect_uri);
-    // return;
-    // header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
   }
   return $response->withHeader('Location', $url);
 })->setName('hotel_review_post');
+
 function parseReview($string) {
   $string = preg_replace('/[^A-Za-z0-9]/', ' ', $string);
   $string = preg_replace('/\s+/', ' ', $string);
@@ -215,7 +194,7 @@ function get_city_hotels($id, $nama_kota) {
   $data = array();
   
   if ($isCity) {
-    $sql = "SELECT hotel.id AS id, hotel.nama_hotel AS nama_hotel, hotel_rating.avg_rating AS rating, hotel.bintang AS bintang, hotel.url_foto AS url_foto, hotel.lokasi AS lokasi, hotel.canonical_name AS canonical_name FROM (SELECT hotel_id, ROUND(AVG(rating),1) as avg_rating FROM review GROUP BY hotel_id) hotel_rating INNER JOIN hotel ON hotel.id = hotel_rating.hotel_id WHERE hotel.id_kota = $id;";
+    $sql = "SELECT hotel.id AS id, hotel.nama_hotel AS nama_hotel, hotel_rating.avg_rating AS rating, hotel.bintang AS bintang, hotel.url_foto AS url_foto, hotel.lokasi AS lokasi, hotel.canonical_name AS canonical_name FROM (SELECT hotel_id, ROUND(AVG(rating),1) as avg_rating FROM review GROUP BY hotel_id) hotel_rating INNER JOIN hotel ON hotel.id = hotel_rating.hotel_id WHERE hotel.id_kota = $id ORDER BY rating DESC;";
     $exe = $db->query($sql);
     
     while ($row = $exe->fetch_assoc()) {
@@ -230,7 +209,7 @@ function get_city_hotels($id, $nama_kota) {
 
 function get_hotels_by_limit($limit) {
   $db = connect_db();
-  $sql = "SELECT hotel.id AS id, hotel.nama_hotel AS nama_hotel, hotel_rating.avg_rating AS rating, hotel.bintang AS bintang, hotel.url_foto AS url_foto, hotel.lokasi AS lokasi, hotel.canonical_name AS canonical_name FROM (SELECT hotel_id, AVG(rating) as avg_rating FROM review GROUP BY hotel_id) hotel_rating INNER JOIN hotel ON hotel.id = hotel_rating.hotel_id ORDER BY rating DESC LIMIT 6;";//"SELECT * FROM `hotel` ORDER BY `rating` ORDER BY id LIMIT $limit;";
+  $sql = "SELECT hotel.id AS id, hotel.nama_hotel AS nama_hotel, hotel_rating.avg_rating AS rating, hotel.bintang AS bintang, hotel.url_foto AS url_foto, hotel.lokasi AS lokasi, hotel.canonical_name AS canonical_name FROM (SELECT hotel_id, AVG(rating) as avg_rating FROM review GROUP BY hotel_id) hotel_rating INNER JOIN hotel ON hotel.id = hotel_rating.hotel_id ORDER BY rating DESC LIMIT 6;";
   $exe = $db->query($sql);
   $hotels = array();
 
